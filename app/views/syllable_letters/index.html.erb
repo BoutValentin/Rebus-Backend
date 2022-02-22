@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Syllable letters</h1>
+
+<div id="syllable_letters">
+  <% @syllable_letters.each do |syllable_letter| %>
+    <%= render syllable_letter %>
+    <p>
+      <%= link_to "Show this syllable letter", syllable_letter %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New syllable letter", new_syllable_letter_path %>

@@ -1,0 +1,8 @@
+
+<h1>Rebus Game</h1>
+
+<%= form_with url: :rebus_word, method: :get do |form| %>
+  <%= form.label :word, "Create a rebus for:" %>
+  <%= form.text_field :word %>
+  <%= form.submit "Create my Rebus" %>
+<% end %>

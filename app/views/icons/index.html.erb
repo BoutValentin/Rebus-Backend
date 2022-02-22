@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Icons</h1>
+
+<div id="icons">
+  <% @icons.each do |icon| %>
+    <%= render icon %>
+    <p>
+      <%= link_to "Show this icon", icon %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New icon", new_icon_path %>

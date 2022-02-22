@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @phonetic %>
+
+<div>
+  <%= link_to "Edit this phonetic", edit_phonetic_path(@phonetic) %> |
+  <%= link_to "Back to phonetics", phonetics_path %>
+
+  <%= button_to "Destroy this phonetic", @phonetic, method: :delete %>
+</div>

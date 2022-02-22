@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @syllable_letter %>
+
+<div>
+  <%= link_to "Edit this syllable letter", edit_syllable_letter_path(@syllable_letter) %> |
+  <%= link_to "Back to syllable letters", syllable_letters_path %>
+
+  <%= button_to "Destroy this syllable letter", @syllable_letter, method: :delete %>
+</div>

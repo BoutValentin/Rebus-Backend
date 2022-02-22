@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Phonetics</h1>
+
+<div id="phonetics">
+  <% @phonetics.each do |phonetic| %>
+    <%= render phonetic %>
+    <p>
+      <%= link_to "Show this phonetic", phonetic %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New phonetic", new_phonetic_path %>

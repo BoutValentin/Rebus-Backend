@@ -1,0 +1,12 @@
+<div id="<%= dom_id icon %>">
+  <p>
+    <strong>Name:</strong>
+    <%= icon.name %>
+  </p>
+
+  <p>
+    <strong>Image:</strong>
+    <%= link_to icon.image.filename, icon.image if icon.image.attached? %>
+  </p>
+
+</div>
