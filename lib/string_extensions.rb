@@ -9,16 +9,14 @@ class String
     end
 
     def syllable
-        cut_word(self)
+        (self.split(" ").map do |value|
+            cut_word(value)
+        end).flatten
     end
 
     private 
 
     def cut_word(word)
-        if !word.is_a?(String) 
-            return []
-        end
-
         tab_1 = get_index_consonant(word)
         checker_word = word
         word_tab_consonnant = []
@@ -48,6 +46,7 @@ class String
         end
         word_tab_vowels.flatten
     end
+    
     def remove_syllabe_with_zero_vowels(tab, index = 0)
         tab_l = tab.length
         if tab_l <= 1
