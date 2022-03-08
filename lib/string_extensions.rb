@@ -5,7 +5,7 @@ class String
     end
 
     def contains_vowels?
-        self.match? 'a|e|i|o|u'
+        self.match? 'a|e|i|o|u|à|é|è|á|y'
     end
 
     def syllable

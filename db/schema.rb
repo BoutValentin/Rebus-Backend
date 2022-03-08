@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_22_181106) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_08_160338) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,12 +67,28 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_22_181106) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "rebus_reponses", force: :cascade do |t|
+    t.string "word"
+    t.integer "difficulty"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "syllable_letters", force: :cascade do |t|
     t.string "syllable_letter"
     t.bigint "phonetic_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["phonetic_id"], name: "index_syllable_letters_on_phonetic_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password_digest"
+    t.integer "points", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
