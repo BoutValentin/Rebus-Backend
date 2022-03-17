@@ -17,6 +17,7 @@ class RebusController < ApplicationController
     @word = to_cut
     if to_cut.nil?
       render :json => {:error => "You should provide a word for creating a rebus with it"}, status: :bad_request
+      return
     end
     @rebus = create_rebus_if_not_exist(@word)
     rebus_from_word(@word)

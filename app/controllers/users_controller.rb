@@ -7,6 +7,10 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def leaderboard
+    @users = User.order(points: :desc).limit(100)
+  end
+
   # GET /users/1 or /users/1.json
   def show
   end

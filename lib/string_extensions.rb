@@ -1,7 +1,7 @@
 class String 
 
     def is_vowels?
-        self.length <= 1 && 'aeiou'.include?(self) 
+        self.length <= 1 && 'aeiouàéèáy'.include?(self) 
     end
 
     def contains_vowels?

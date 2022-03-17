@@ -1,0 +1,259 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "Login as user",
+        "tags": [
+          "Login"
+        ],
+        "description": "Try to log an user depending on the data your sent",
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "login sucessfull",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "points": {
+                      "type": "integer"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "invalid username and password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username",
+                  "password"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/leaderboard": {
+      "get": {
+        "summary": "Retrieve the leaderboard",
+        "tags": [
+          "leaderboard"
+        ],
+        "description": "Retrieve the 100 best players in the rebus game.",
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get leaderboard",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "username": {
+                        "type": "string"
+                      },
+                      "points": {
+                        "type": "integer"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "updated_at": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rebus/word?word={word}": {
+      "get": {
+        "summary": "Retrieve rebus from a word",
+        "tags": [
+          "Rebus"
+        ],
+        "description": "Create a rebus from the word given",
+        "parameters": [
+          {
+            "name": "word",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "rebus create"
+          },
+          "403": {
+            "description": "not login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rebus/random": {
+      "get": {
+        "summary": "Create a rebus from a random word",
+        "tags": [
+          "Rebus"
+        ],
+        "description": "Create a rebus from a random word (fr)",
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "rebus create"
+          },
+          "403": {
+            "description": "not login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://{defaultHost}",
+      "variables": {
+        "defaultHost": {
+          "default": "www.example.com"
+        }
+      }
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer_auth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

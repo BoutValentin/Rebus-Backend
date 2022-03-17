@@ -15,8 +15,9 @@
     syllable = SyllableLetter.create(syllable_letter: value, phonetic: phonetic)
 end
 
-user = User.create(username: "Perceval", password: "123456")
-user2 = User.create(username: "Gluburuk", password: "123456")
-user3 = User.create(username: "Ayoub", password: "123456")
+tester = User.create(username: "tester", password: "123456")
+user = User.create(username: "perceval", password: "123456")
+user2 = User.create(username: "gluburuk", password: "123456")
+user3 = User.create(username: "ayoub", password: "123456")
 
 rebus = RebusReponse.create(word: "bateau", difficulty: 10)
