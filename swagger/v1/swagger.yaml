@@ -21,30 +21,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer"
-                    },
-                    "username": {
-                      "type": "string"
-                    },
-                    "points": {
-                      "type": "integer"
-                    },
-                    "created_at": {
-                      "type": "string"
-                    },
-                    "updated_at": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
-                    "token": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schema/user"
                 }
               }
             }
@@ -54,12 +31,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schema/errors"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error in data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schema/errors"
                 }
               }
             }
@@ -92,7 +74,7 @@
       "get": {
         "summary": "Retrieve the leaderboard",
         "tags": [
-          "leaderboard"
+          "Leaderboard"
         ],
         "description": "Retrieve the 100 best players in the rebus game.",
         "security": [
@@ -110,27 +92,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "integer"
-                      },
-                      "username": {
-                        "type": "string"
-                      },
-                      "points": {
-                        "type": "integer"
-                      },
-                      "created_at": {
-                        "type": "string"
-                      },
-                      "updated_at": {
-                        "type": "string"
-                      },
-                      "url": {
-                        "type": "string"
-                      }
-                    }
+                    "$ref": "#/components/schema/user"
                   }
                 }
               }
@@ -141,12 +103,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schema/errors"
                 }
               }
             }
@@ -180,19 +137,21 @@
         ],
         "responses": {
           "200": {
-            "description": "rebus create"
+            "description": "rebus create",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schema/rebus"
+                }
+              }
+            }
           },
           "403": {
             "description": "not login",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schema/errors"
                 }
               }
             }
@@ -216,19 +175,151 @@
         ],
         "responses": {
           "200": {
-            "description": "rebus create"
+            "description": "rebus create",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schema/rebus"
+                }
+              }
+            }
           },
           "403": {
             "description": "not login",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
+                  "$ref": "#/components/schema/errors"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rebus/{id}/pass": {
+      "post": {
+        "summary": "Pass a rebus",
+        "tags": [
+          "Rebus"
+        ],
+        "description": "Pass a rebus if you don't have this answer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "rebus pass"
+          },
+          "403": {
+            "description": "not login"
+          }
+        }
+      }
+    },
+    "/rebus/{id}/guess": {
+      "post": {
+        "summary": "Guess a rebus",
+        "tags": [
+          "Rebus"
+        ],
+        "description": "Trying to guess a rebus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "rebus pass"
+          },
+          "403": {
+            "description": "not login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schema/errors"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "summary": "create a user",
+        "tags": [
+          "User"
+        ],
+        "description": "Create an account",
+        "parameters": [
+
+        ],
+        "responses": {
+          "201": {
+            "description": "User create",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schema/user"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string"
+                        }
+                      }
                     }
-                  }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error in data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schema/errors"
                 }
               }
             }
@@ -242,7 +333,7 @@
       "url": "https://{defaultHost}",
       "variables": {
         "defaultHost": {
-          "default": "www.example.com"
+          "default": "www.rebus.com"
         }
       }
     }
@@ -253,6 +344,88 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
+      }
+    },
+    "schema": {
+      "user": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string"
+          },
+          "points": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "errors": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "rebus_icon": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "image_url": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "rebus_array": {
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/components/schema/rebus_icon"
+          }
+        ]
+      },
+      "rebus_array_any": {
+        "type": "array",
+        "anyOf": [
+          {
+            "$ref": "#/components/schema/rebus_array"
+          },
+          {
+            "$ref": "#/components/schema/rebus_icon"
+          }
+        ]
+      },
+      "rebus": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "difficulty": {
+            "type": "integer"
+          },
+          "rebus": {
+            "$ref": "#/components/schema/rebus_array_any"
+          }
+        }
       }
     }
   }

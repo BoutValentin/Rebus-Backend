@@ -27,7 +27,7 @@ RSpec.configure do |config|
           url: 'https://{defaultHost}',
           variables: {
             defaultHost: {
-              default: 'www.example.com'
+              default: 'www.rebus.com'
             }
           }
         }
@@ -38,6 +38,52 @@ RSpec.configure do |config|
             type: :http,
             scheme: :bearer,
             bearerFormat: :JWT 
+          }
+        },
+        schema: {
+          user: {
+            type: 'object',
+            properties: {
+              id: {type: 'integer'},
+              username: {type: 'string'},
+              points: {type: 'integer'},
+              created_at: {type: 'string'},
+              updated_at: {type: 'string'},
+              url: {type: 'string'}
+            }
+          },
+          errors: {
+            type: 'object', 
+            properties: {
+              message: {type: 'string'}       
+            }
+          },
+          rebus_icon: {
+            type: "object",
+            properties: {
+              id: {type: "integer", nullable: true},
+              name: {type: "string"},
+              image_url: {type: "string", nullable: true}
+            }
+          },
+          rebus_array: {
+            type: 'array', 
+            items: [{'$ref' => '#/components/schema/rebus_icon'}]
+          },
+          rebus_array_any: {
+            type: 'array',
+            anyOf: [
+              {'$ref' => '#/components/schema/rebus_array'},
+              {'$ref' => '#/components/schema/rebus_icon'}
+            ]
+          },
+          rebus: {
+            type: 'object',
+            properties: {
+              id: {type: 'integer'},
+              difficulty: {type: 'integer'},
+              rebus: {'$ref' => '#/components/schema/rebus_array_any'}
+            }
           }
         }
       }

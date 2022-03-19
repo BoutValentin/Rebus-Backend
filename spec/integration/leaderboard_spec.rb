@@ -12,25 +12,13 @@ describe 'Leaderboard' do
             
             response '200', 'Get leaderboard' do
                 let(:Authorization) { "Bearer #{create_token({user_id: User.first.id})}"}
-                schema type: :array, items: {
-                    type: :object, 
-                    properties: {
-                        id: {type: :integer},
-                        username:  {type: :string},
-                        points:  {type: :integer},
-                        created_at:  {type: :string},
-                        updated_at:  {type: :string},
-                        url:  {type: :string}   
-                    }
-                }
+                schema type: :array, items: {'$ref' => '#/components/schema/user'}
                 run_test!
             end 
 
             response '403', 'Not login' do
                 let(:Authorization) { "Bearer " }
-                schema type: :object, properties: {
-                    message: {type: :string}       
-                }
+                schema '$ref' => '#/components/schema/errors'
                 run_test!
             end
         end

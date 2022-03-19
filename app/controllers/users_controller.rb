@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  # GET /leaderboard
   def leaderboard
     @users = User.order(points: :desc).limit(100)
   end
@@ -27,6 +28,12 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     params = user_params
+    if params[:username].nil?
+      respond_to do |format|
+        format.json { render json: {message: "No username provide"}, status: :unprocessable_entity }
+      end
+      return
+    end
     params[:username] = params[:username].downcase
     @user = User.new(params)
     @token = create_token({user_id: @user.id})
@@ -38,29 +45,6 @@ class UsersController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # PATCH/PUT /users/1 or /users/1.json
-  def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /users/1 or /users/1.json
-  def destroy
-    @user.destroy
-
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 

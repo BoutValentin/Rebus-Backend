@@ -4,14 +4,21 @@ class RebusController < ApplicationController
   before_action :set_rebus_reponse, only: [:pass, :guess]
   before_action :set_host
 
+  # GET /rebus/random
   def random
+    # We do a get request to a third party API
     reponse = HTTParty.get("http://tools.wmflabs.org/anagrimes/hasard.php?langue=fr")
+    # We retrieve the word from the last elements
     @word = URI.decode_www_form_component(reponse.request.last_uri.path.split('/').last)
+    # We create a rebus or retrieve it by the word
     @rebus = create_rebus_if_not_exist(@word)
+    # We create a rebus from the word
     rebus_from_word(@word)
+    # We render the word template
     render "word"
   end
 
+  # GET /rebus/word?word={word}
   def word
     to_cut = params[:word]
     @word = to_cut
@@ -99,7 +106,11 @@ class RebusController < ApplicationController
         SyllableLetter.create(syllable_letter: syllable)
       end
       syllable.each_char do |letter|
-        icon = SyllableLetter.find_by(syllable_letter: letter).get_direct_icon
+        syla = SyllableLetter.find_by(syllable_letter: letter)
+        icon = nil
+        if !syla.nil?
+          icon = syla.get_direct_icon
+        end
         array.push(icon.nil? ? letter : icon)
       end
       return nil
