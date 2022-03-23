@@ -52,6 +52,8 @@ describe 'Rebus' do
     path '/rebus/{id}/pass' do
         post 'Pass a rebus' do
             tags 'Rebus'
+            consumes 'application/json'
+            produces 'application/json'
             description 'Pass a rebus if you don\'t have this answer'
             parameter name: :id, in: :path, type: :integer
             security [{bearer_auth: []}]

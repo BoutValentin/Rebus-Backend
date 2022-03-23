@@ -1,0 +1,109 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.main .section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.main .section .row {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.random-rebus,
+.create-rebus {
+  min-height: 300px;
+  width: 50%;
+  margin: 30px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.random-rebus {
+  background-color: #ab2836d3;
+}
+
+.create-rebus {
+  background-color: #005f73d3;
+}
+
+.random-rebus,
+.create-rebus,
+.leaderboard {
+  transition: all 0.3s ease;
+}
+
+.random-rebus:active,
+.leaderboard:active {
+  transform: scale(0.95);
+}
+
+.leaderboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #14371fd3;
+  height: 200px;
+  width: 100%;
+  margin: 30px;
+  text-align: center;
+  border-radius: 15px;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.leaderboard .t1,
+.random-rebus .t1,
+.create-rebus .t1 {
+  margin-top: 10px;
+  font-size: 23px;
+}
+
+.leaderboard .subnotice,
+.random-rebus .subnotice,
+.create-rebus .subnotice {
+  color: #ffffff9d;
+}
+
+.create-rebus form {
+  margin-top: -10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.create-rebus form label {
+  margin: 10px 0 6px 0;
+  font-size: 15px;
+  color: #ffffffad;
+}
+
+.create-rebus form input {
+  min-height: 20px;
+  padding: 8px 8px;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 0px;
+}
+
+.create-rebus form input[type="submit"] {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  align-self: center;
+  height: auto;
+  cursor: pointer;
+}

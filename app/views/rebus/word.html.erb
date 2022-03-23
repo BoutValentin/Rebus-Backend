@@ -1,2 +1,55 @@
-<h1>Rebus#word</h1>
-<p>Find me in app/views/rebus/word.html.erb</p>
+<div data-controller="rebus" class="rebus" >
+<h1>Jouons au rébus !</h1>
+
+<p data-rebus-target="difficulty" >Rébus d'une difficultée de <%= @rebus.difficulty %></p>
+
+<div class="rebus-print">
+<%@final_syllable.each do |syllable|%>
+    <% if syllable.is_a? String%> 
+        <h1 id="syllable-<%= syllable%>"><%= syllable %></h1>
+    <% elsif syllable.is_a? Array%>
+        <%syllable.each_with_index do |s_syllable, index|%>
+            <% if syllable.is_a? String%> 
+                <h1 id="syllable-<%= syllable%>"><%= syllable %></h1>
+            <% else %>
+                    <img class='syllable' id="syllable-<%= syllable.id%>" alt="<%= syllable.name %>" src="<%= url_for(syllable.image) %>"/>
+            <% end %>
+            <% if index == 0%>
+                <h1>- ( </h1>
+            <% elsif index +1 >= syllable.count%>
+                <h1> ) </h1>
+            <% else %>
+                <h1> + </h1>
+            <% end %>
+        <% end %>
+    <% else %>
+        <img class='syllable' id="syllable-<%= syllable.id%>" alt="<%= syllable.name %>" src="<%= url_for(syllable.image) %>"/>
+    <% end %>
+<% end %>
+</div>
+
+<div>
+<% if @show_guess %>
+<div class="regles-container">
+<p>Règles du rébus</p>
+<ul>
+    <li>Les espaces sont representés par un '_' (tiret du 8)</li>
+    <li>Les accents sont comptés</li>
+    <li>Des équations d'images existent : Par exemple (Bateau - eau) signifie qu'à l'image 'bateau' je retire le son 'eau' me donnant 'bat'</li>
+
+</ul>
+</div>
+    <h1>Vous avez deviné le mot ?</h1>
+    <p data-rebus-target="response" class="resp"></p>
+
+    <form data-rebus-target="form" onsubmit="event.preventDefault();return false;">
+        <input data-rebus-target="id" type='text' value="<%= @rebus.id%>" readonly=true hidden=true>
+        <label>Le mot selon vous est ?</label>
+        <input data-rebus-target="source" type="text" placeholder="Le mot selon vous">
+        <button data-action='rebus#guess'>Devinez le rebus</button>
+        <button data-action='rebus#pass'>Passez le rebus</button>
+    </form>
+    <button target="_top" data-rebus-target="new_rebus" hidden=true data-action='click->rebus#find_pass'>Un autre !</button>
+<% end %>
+</div>
+</div>

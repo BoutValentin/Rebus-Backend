@@ -1,8 +1,32 @@
+<div class="main">
 
-<h1>Rebus Game</h1>
+<h1>Jouons aux rébus !</h1>
 
-<%= form_with url: :rebus_word, method: :get do |form| %>
-  <%= form.label :word, "Create a rebus for:" %>
-  <%= form.text_field :word %>
-  <%= form.submit "Create my Rebus" %>
-<% end %>
+<div class="section">
+  <div class="row">
+    <div class="create-rebus">
+      <p class="t1" >Créer un rébus</p>
+      <p>Besoin d'un rébus ? notre générateur est la pour vous !</p>
+      <%= form_with url: :rebus_word, method: :get do |form| %>
+        <%= form.label :word, "Votre mot:" %>
+        <%= form.text_field :word,  placeholder: "Votre mot" %>
+        <%= form.submit "Créer mon rebus" %>
+      <% end %>
+      <p class="subnotice">Partager nous vos rebus rigolos sur @twitter</p>
+    </div>
+    <a class="random-rebus" href="/rebus/random">
+      <p class="t1" >Résoudre des rébus</p>
+      <p>Essayer de résoudre un maximum de rébus aleatoire pour augmenter votre score et apparaitre dans le classement.</p>
+      <p>Un rebus qui n'a était que très peu trouvé par la communauté vous rapportera plus de points que les autres...</p>
+      <p class="subnotice">Seriez-vous capable de tous les déchiffrer ?...</p>
+    </a>
+  </div>
+  <div class="row">
+  <a class="leaderboard" href="/leaderboard">
+    <p class="t1" >Voir le classement</p>
+    <p>Retrouver le classement des 100 meilleurs utilisateurs du RébusGame. Pour augmenter votre score, essayer de résoudre des rébus</p>
+    <p class="subnotice">Êtes-vous dans les meilleurs ?...</p>
+  </a>
+  </div>
+</div>
+

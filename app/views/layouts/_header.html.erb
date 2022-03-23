@@ -1,0 +1,15 @@
+<header>
+    <%= image_tag "rebus.png", class: "icon" %>
+
+    <p class="title"> <a href="/">Rébus Game</a></p>
+    
+    <% if @current_user %>
+        <div class="user">
+            <p class="username"><%= @current_user.username%></p>
+            <p><%= @current_user.points%> points</p>
+            <p class="logout button"><a href="/logout">Se déconnecter</a></p>
+        </div>
+    <% else %>
+        <p class="login button"><a href="/login">Se connecter</a></p>
+    <% end %>
+</header>

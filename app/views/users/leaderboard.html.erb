@@ -1,0 +1,12 @@
+<div class="leaderboard-container">
+    <h1>Le classement</h1>
+    <div class="users">
+        <% @users.each_with_index do |users, index| %>
+            <div class="row">
+                <p><span class="bold"><%= index + 1%></span></p>
+                <p><span class="bold"><%= users.username%></span></p>
+                <p><span class="bold"><%= users.points%></span> points </p>
+            </div>
+        <% end %>
+    </div>
+</div>

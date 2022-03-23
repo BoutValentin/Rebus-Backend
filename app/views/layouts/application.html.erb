@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Rebus Game</title>
+    <title>Rébus Game | Le premier jeu de rébus en ligne </title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Shippori+Antique&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
+    <%= render 'layouts/header' %>
+    <% flash.each do |type, msg| %>
+      <div data-controller="alert" data-alert-target='alert'  class="alert alert-info <%=type%>">
+        <button data-action="alert#click" class='close-button' >
+          <%= image_tag 'close.png' %>
+        </button>
+        <%= msg %>
+      </div>
+    <% end %>
     <%= yield %>
+        <%= render 'layouts/footer' %>
+
   </body>
 </html>

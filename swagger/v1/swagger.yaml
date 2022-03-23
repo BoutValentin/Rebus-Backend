@@ -226,7 +226,14 @@
             "description": "rebus pass"
           },
           "403": {
-            "description": "not login"
+            "description": "not login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schema/errors"
+                }
+              }
+            }
           }
         }
       }

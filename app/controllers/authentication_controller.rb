@@ -1,12 +1,33 @@
 class AuthenticationController < ApplicationController
-    skip_before_action :authenticate, only: [:login]
+    skip_before_action :authenticate, only: [:login, :index]
+
+    # GET /login
+    def index 
+    end
+
+    # GET /logout
+    def logout
+        @current_user = nil
+        cookies.delete(:auth_token)
+        respond_to do |format|
+            format.html {
+                flash[:notice] = "You are now logout"
+                redirect_to '/'
+            }
+            format.json { render json: {message: "You are now logout"}, status: :ok }
+        end
+    end
 
     # POST /login
     def login
         # We check if a username is provide
-        if params[:username].nil?
+        if params[:username].nil? || params[:username].blank?
             respond_to do |format|
-              format.json { render json: {message: "No username provide"}, status: :unprocessable_entity }
+                format.html {
+                    flash[:error] = "No username provide"
+                    redirect_to '/login'
+                }
+                format.json { render json: {message: "No username provide"}, status: :unprocessable_entity }
             end
             return
         end
@@ -17,15 +38,34 @@ class AuthenticationController < ApplicationController
             if @user.authenticate(params[:password])
                 # We create a token
                 @token = create_token({user_id: @user.id})
+                cookies[:auth_token] = @token
                 # And render the show user
-                render 'users/show', status: :ok
+                respond_to do |format|
+                    format.html {
+                        flash[:notice] = "You are now login"
+                        redirect_to '/'
+                    }
+                    format.json { render 'users/show', status: :ok }
+                end    
             else
                 # We have an incorrect credentials
-                render json: { message: "Invalid credentials" }, status: :forbidden
+                respond_to do |format|
+                    format.html {
+                        flash[:error] = "Invalid credentials"
+                        redirect_to '/login'
+                    }
+                    format.json { render json: {message: "Invalid credentials"}, status: :forbidden }
+                end
             end
         else
             # We have an unknow user
-            render json: { message: "You need to create an account" }, status: :forbidden
+            respond_to do |format|
+                format.html {
+                    flash[:error] = "You need to create an account"
+                    redirect_to '/login'
+                }
+                format.json { render json: {message: "You need to create an account"}, status: :forbidden }
+            end
         end
     end
 end

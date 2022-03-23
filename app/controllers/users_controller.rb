@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 
   # GET /leaderboard
   def leaderboard
+    # We retrieve all the user by descending point with a limit of 100
     @users = User.order(points: :desc).limit(100)
   end
 

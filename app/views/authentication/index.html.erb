@@ -1,0 +1,10 @@
+<div class="login">
+<h1> Se connecter </h1>
+<%= form_with url: '/login', method: :post do |form| %>
+    <%= form.label :username, "Nom d'utilisateur" %>
+    <%= form.text_field :username, placeholder: 'Votre nom d\'utilisateur'%>
+    <%= form.label :password, "Mot de passe"%>
+    <%= form.password_field :password, placeholder: 'Votre mot de passe'%>
+    <%= form.submit "Se connecter" %>
+<% end %>
+</div>
