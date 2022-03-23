@@ -8,11 +8,12 @@
     <% if syllable.is_a? String%> 
         <h1 id="syllable-<%= syllable%>"><%= syllable %></h1>
     <% elsif syllable.is_a? Array%>
+        <h1> ( </h1>
         <%syllable.each_with_index do |s_syllable, index|%>
             <% if syllable.is_a? String%> 
                 <h1 id="syllable-<%= syllable%>"><%= syllable %></h1>
             <% else %>
-                    <img class='syllable' id="syllable-<%= syllable.id%>" alt="<%= syllable.name %>" src="<%= url_for(syllable.image) %>"/>
+                    <img class='syllable' id="syllable-<%= s_syllable.id%>" alt="<%= s_syllable.name %>" src="<%= url_for(s_syllable.image) %>"/>
             <% end %>
             <% if index == 0%>
                 <h1>- ( </h1>
@@ -22,11 +23,15 @@
                 <h1> + </h1>
             <% end %>
         <% end %>
+        <h1> ) </h1>
     <% else %>
         <img class='syllable' id="syllable-<%= syllable.id%>" alt="<%= syllable.name %>" src="<%= url_for(syllable.image) %>"/>
     <% end %>
 <% end %>
 </div>
+<% if !@show_guess %>
+    <p> Votre rebus pour le mot <b><%= @word %> </b>se trouve au dessus</p>
+<% end %>
 
 <div>
 <% if @show_guess %>

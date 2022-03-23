@@ -202,10 +202,15 @@ class RebusController < ApplicationController
     icon_choose = phonetic_db.undirect_phonetic_icons.sample
     # We create an undirect array who will stock all of the other syllable of the equation to be substract
     arr = []
+    # We add to the array the undirect icon
+    arr.push(icon_choose)
     # For each syllable in the name of the icon
-    icon_choose.name.syllable.each do |second_syllable|
-      # We are mapping a syllable to an icon (without redirect this time)
-      mapping_icon_syllable(second_syllable, arr, false)
+    icon_choose.name.syllable.each_with_index do |second_syllable, index|
+      # We are not adding the first syllable since it his what we want to keeo
+      if index != 0
+        # We are mapping a syllable to an icon (without redirect this time)
+        mapping_icon_syllable(second_syllable, arr, false)
+      end
     end
     # We push this array of mapping to the array provide in params
     array.push(arr)

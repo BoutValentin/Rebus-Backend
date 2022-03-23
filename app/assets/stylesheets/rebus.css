@@ -9,6 +9,7 @@
 
 .syllable {
   max-height: 60px;
+  border-radius: 8px;
   margin: 5px;
 }
 
